@@ -2,7 +2,6 @@ angular.module("listaTelefonica").controller("novoContatoCtrl", function ($scope
   $scope.operadoras = operadoras.data;
 
 
-
   $scope.adicionarContato = function (contato) {
     contato.data = new Date();
     contatosAPI.addContatos(contato).then(function () {

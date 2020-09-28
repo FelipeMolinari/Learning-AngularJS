@@ -1,7 +1,6 @@
 angular.module("listaTelefonica").directive("uiCellphone", function () {
   function _formatCellphone(cellphone) {
     cellphone = cellphone.replace(/[^0-9]+/g, "");
-    console.log(cellphone)
     if (cellphone.length > 0) {
       cellphone = '(' + cellphone.substring(0);
     } if (cellphone.length > 2) {

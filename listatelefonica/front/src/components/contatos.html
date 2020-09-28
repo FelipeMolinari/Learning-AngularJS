@@ -1,11 +1,13 @@
 <div>
-  <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+  <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"
+    ng-model-options="{updateOn: 'default blur', debounce:{default: 300, blur: 0}}" />
   <table ng-show="contatos.length > 0" class="table table-striped">
     <tr>
       <th></th>
       <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
       <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
       <th>Operadora</th>
+      <th>Preco</th>
       <th>Data</th>
     </tr>
     <ui-alert ng-show="error" title="Ops, aconteceu um problema">
@@ -15,17 +17,20 @@
 
     <tr ng-class="{'selecinado negrito': contato.selecionado}"
       ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-      <td><input type="checkbox" ng-model="contato.selecionado" /></td>
-      <td><a href="#/contatos/{{contato.id}}"> {{contato.nome | name | ellipses: 10}}</a></td>
-      <td>{{contato.telefone}}</td>
-      <td>{{contato.operadora.nome | lowercase}}</td>
-      <td>{{contato.data | date: 'EEE dd/MM/yyyy HH:mm'}}</td>
+      <td><input type="checkbox" ng-model="contato.selecionado" ng-selected="contato.selecionado"
+          ng-click="verificarContatoSelecionado(contatos)" />
+      </td>
+      <td><a href="#/contatos/{{contato.id}}"> {{::contato.nome | name | ellipses: 10}}</a></td>
+      <td>{{::contato.telefone}}</td>
+      <td>{{::contato.operadora.nome | lowercase}}</td>
+      <td>{{::contato.operadora.precoComImposto | currency}}</td>
+      <td>{{::contato.data | date: 'EEE dd/MM/yyyy HH:mm'}}</td>
     </tr>
   </table>
   <hr />
   <a class="btn btn-primary btn-block" href="#/contatos/novo">Novo contato</a>
-  <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)"
-    ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
+  <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-if="temContatoSelecionado">Apagar
+    Contatos</button>
   <ui-accordions>
     <ui-accordion title="accordion 1">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
