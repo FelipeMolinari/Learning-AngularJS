@@ -30,9 +30,14 @@ app.get("/contatos", (_, response) => {
 });
 app.get("/contato/:id", (req, response) => {
   const { id } = req.params
-  return response.send(contatos.filter((contato) => {
+  const contact = contatos.filter((contato) => {
     return contato.id === parseInt(id)
-  })[0]);
+  })[0];
+  if (contact) {
+    return response.send(contact);
+  } else {
+    return response.status(404).send({ msg: "User not found" });
+  }
 });
 app.post("/contatos", (request, response) => {
   const data = request.body;

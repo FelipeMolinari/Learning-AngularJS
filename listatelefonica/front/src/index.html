@@ -34,11 +34,17 @@
 	<script src="js/directives/uiCellphone.js"></script>
 	<script src="js/directives/uiAccordion.js"></script>
 
+	<script src="js/config/interceptorConfig.js"></script>
+	<script src="js/interceptors/timestamp.js"></script>
+
+	<script src="js/interceptors/error.js"></script>
+	<script src="js/interceptors/loading.js"></script>
 </head>
 
 <body>
 	<div class="jumbotron">
-		<div ng-view></div>
+		<div ng-hide="!loading"><span>Carregando, por favor aguarde...</span></div>
+		<div ng-view ng-hide="loading"></div>
 	</div>
 	<div ng-include="components/footer.html"></div>
 </body>
