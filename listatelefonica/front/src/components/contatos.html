@@ -1,0 +1,46 @@
+<div>
+  <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
+  <table ng-show="contatos.length > 0" class="table table-striped">
+    <tr>
+      <th></th>
+      <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+      <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
+      <th>Operadora</th>
+      <th>Data</th>
+    </tr>
+    <ui-alert ng-show="error" title="Ops, aconteceu um problema">
+      Não foi possível carregar os dados
+
+    </ui-alert>
+
+    <tr ng-class="{'selecinado negrito': contato.selecionado}"
+      ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+      <td><input type="checkbox" ng-model="contato.selecionado" /></td>
+      <td><a href="#/contatos/{{contato.id}}"> {{contato.nome | name | ellipses: 10}}</a></td>
+      <td>{{contato.telefone}}</td>
+      <td>{{contato.operadora.nome | lowercase}}</td>
+      <td>{{contato.data | date: 'EEE dd/MM/yyyy HH:mm'}}</td>
+    </tr>
+  </table>
+  <hr />
+  <a class="btn btn-primary btn-block" href="#/contatos/novo">Novo contato</a>
+  <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)"
+    ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
+  <ui-accordions>
+    <ui-accordion title="accordion 1">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+      pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </ui-accordion>
+    <ui-accordion title="accordion 2">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+      pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </ui-accordion>
+  </ui-accordions>
+
+</div>

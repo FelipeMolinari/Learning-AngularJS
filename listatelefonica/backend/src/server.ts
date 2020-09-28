@@ -6,9 +6,9 @@ app.use(json());
 app.use(cors());
 
 const contatos = [
-  { nome: "Pedro", telefone: "9999-8888", data: new Date(), operadora: { nome: "Oi", codigo: 14, categoria: "Celular" } },
-  { nome: "Ana", telefone: "9999-8877", data: new Date(), operadora: { nome: "Vivo", codigo: 15, categoria: "Celular" } },
-  { nome: "Maria", telefone: "9999-8866", data: new Date(), operadora: { nome: "Tim", codigo: 41, categoria: "Celular" } }
+  { id: 0, nome: "Pedro", telefone: "9999-8888", data: new Date(), operadora: { nome: "Oi", codigo: 14, categoria: "Celular" } },
+  { id: 1, nome: "Ana", telefone: "9999-8877", data: new Date(), operadora: { nome: "Vivo", codigo: 15, categoria: "Celular" } },
+  { id: 2, nome: "Maria", telefone: "9999-8866", data: new Date(), operadora: { nome: "Tim", codigo: 41, categoria: "Celular" } }
 ];
 const operadoras = [
   { nome: "Oi", codigo: 14, categoria: "Celular", preco: 2 },
@@ -28,9 +28,15 @@ app.get("/operadoras", (_, response) => {
 app.get("/contatos", (_, response) => {
   return response.send(contatos);
 });
+app.get("/contato/:id", (req, response) => {
+  const { id } = req.params
+  return response.send(contatos.filter((contato) => {
+    return contato.id === parseInt(id)
+  })[0]);
+});
 app.post("/contatos", (request, response) => {
   const data = request.body;
-  contatos.push(data);
+  contatos.push({ ...data, id: contatos.length });
   return response.send(data);
 });
 
